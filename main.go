@@ -8,6 +8,12 @@ import (
 	"strings"
 )
 
+type Main struct{}
+
+func NewMain() *Main {
+	return &Main{}
+}
+
 var sentence string
 
 var romNum = map[string]int{
@@ -28,7 +34,7 @@ func FloatToString(input_num float64) string {
 	return strconv.FormatFloat(input_num, 'f', 6, 64)
 }
 
-func Find(slice []string, val string) bool {
+func (m *Main) Find(slice []string, val string) bool {
 	for _, item := range slice {
 		if val == item {
 			return true
@@ -37,7 +43,7 @@ func Find(slice []string, val string) bool {
 	return false
 }
 
-func ConvertToNumber(number string) int {
+func (m *Main) ConvertToNumber(number string) int {
 	var result int
 	ln := len(number)
 	for i := 0; i < ln; i++ {
@@ -59,7 +65,7 @@ func ConvertToNumber(number string) int {
 	return result
 }
 
-func ConvertToRomawi(sentence []string) string {
+func (m *Main) ConvertToRomawi(sentence []string) string {
 	var romArray []string
 	var stc string
 	var nm float64
@@ -81,7 +87,7 @@ func ConvertToRomawi(sentence []string) string {
 	}
 
 	stc = strings.Join(romArray, "")
-	number := ConvertToNumber(stc)
+	number := m.ConvertToNumber(stc)
 
 	for _, vlu := range sentence {
 		if vlu == "Silver" {
@@ -98,7 +104,7 @@ func ConvertToRomawi(sentence []string) string {
 	return stc
 }
 
-func SentenceParsing(sentence string) (string, string) {
+func (m *Main) SentenceParsing(sentence string) (string, string) {
 	var arraySentence []string
 	var stc string
 	var rmw string
@@ -109,25 +115,25 @@ func SentenceParsing(sentence string) (string, string) {
 
 	for i := 0; i < len(s); i++ {
 
-		status := Find(rmc, s[i])
+		status := m.Find(rmc, s[i])
 		if status == true {
 			arraySentence = append(arraySentence, s[i])
 		}
 	}
 
 	stc = strings.Join(arraySentence, " ")
-	rmw = ConvertToRomawi(arraySentence)
+	rmw = m.ConvertToRomawi(arraySentence)
 	return stc, rmw
 }
 
-func main() {
+func (m *Main) main() {
 
 	consoleReader := bufio.NewReader(os.Stdin)
 	fmt.Print("Enter Your Question : ")
 
 	sentence, _ := consoleReader.ReadString('\n')
 	sentence = strings.TrimSuffix(sentence, "\n")
-	s, r := SentenceParsing(sentence)
+	s, r := m.SentenceParsing(sentence)
 
 	fmt.Println(s, "is", r, "Credits")
 }
