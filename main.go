@@ -126,8 +126,8 @@ func (m *Main) SentenceParsing(sentence string) (string, string) {
 	return stc, rmw
 }
 
-func (m *Main) main() {
-
+func main() {
+	m := NewMain()
 	consoleReader := bufio.NewReader(os.Stdin)
 	fmt.Print("Enter Your Question : ")
 
