@@ -7,3 +7,4 @@
 - go run main.go
 
 ## Running unit test
+- go test
